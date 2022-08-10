@@ -10,6 +10,18 @@ describe('backend-express-template routes', () => {
     return setup(pool);
   });
 
+  it('#GET /posts, authenticated users can view a list of posts', async () => {
+    const res = await request(app).get('/api/v1/posts');
+
+    expect(res.status).toBe(200);
+    expect(res.body.length).toBe(2);
+    expect(res.body[0]).toBe({
+      id: expect.any(String),
+      title: expect.any(String),
+      description: expect.any(String),
+      created_at: expect.any(String)
+    });
+  });
 
   afterAll(() => {
     pool.end();
