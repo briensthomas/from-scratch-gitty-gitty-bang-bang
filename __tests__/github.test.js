@@ -32,18 +32,18 @@ describe('backend-express-template routes', () => {
     });
   });
 
-  // it('#DELETE should delete a users cookies', async () => {
-  //   // await agent
-  //   //   .get('/api/v1/github/callback?code=42')
-  //   //   .redirects(1);
+  it('#DELETE should delete a users cookies', async () => {
+    // await agent
+    //   .get('/api/v1/github/callback?code=42')
+    //   .redirects(1);
 
-  //   const res = await agent.delete('/api/v1/github');
-  //   console.log('res.body', res.body);
-  //   expect(res.body).toEqual({
-  //     success: true,
-  //     message: 'Signed out successfully!'
-  //   });
-  // });
+    const res = await agent.delete('/api/v1/github');
+    console.log('res.body', res.body);
+    expect(res.body).toEqual({
+      success: true,
+      message: 'Signed out successfully!'
+    });
+  });
 
 
 
