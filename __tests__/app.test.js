@@ -5,6 +5,8 @@ const app = require('../lib/app');
 
 jest.mock('../lib/services/github');
 
+const agent = request.agent(app);
+
 describe('backend-express-template routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -16,7 +18,7 @@ describe('backend-express-template routes', () => {
   });
   
   it('#GET should login and redirect users to .../dashboard', async () => {
-    const res = await request.agent(app)
+    const res = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
     // console.log('res', res.req.path);
@@ -28,19 +30,31 @@ describe('backend-express-template routes', () => {
     });
   });
 
-  it('#GET /posts, authenticated users can view a list of posts', async () => {
-    await request.agent(app)
+  it('#DELETE should delete a users cookies', async () => {
+    await agent
       .get('/api/v1/github/callback?code=42')
-    const res = await request.agent(app).get('/api/v1/posts');
-  
-    expect(res.body.length).toBe(2);
-    expect(res.body[0]).toBe({
-      id: expect.any(String),
-      title: expect.any(String),
-      description: expect.any(String),
-      created_at: expect.any(String)
+      .redirects(1);
+
+    const res = agent.delete('/api/v1/github/dashboard');
+    expect(res.body).toEqual({
+      success: true,
+      message: 'Signed out successfully!'
     });
   });
+
+  // it('#GET /posts, authenticated users can view a list of posts', async () => {
+  //   await agent
+  //     .get('/api/v1/github/callback?code=42');
+  //   const res = await agent.get('/api/v1/posts');
+  
+  //   expect(res.body.length).toBe(2);
+  //   expect(res.body[0]).toBe({
+  //     id: expect.any(String),
+  //     title: expect.any(String),
+  //     description: expect.any(String),
+  //     created_at: expect.any(String)
+  //   });
+  // });
 
 
 });
