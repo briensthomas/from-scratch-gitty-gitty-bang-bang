@@ -22,6 +22,7 @@ describe('backend-express-template routes', () => {
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
     // console.log('res', res.req.path);
+    
     expect(res.body).toEqual({
       id: expect.any(String),
       username: 'fake_github_user',
@@ -38,14 +39,12 @@ describe('backend-express-template routes', () => {
     //   .redirects(1);
 
     const res = await agent.delete('/api/v1/github');
-    console.log('res.body', res.body);
+    // console.log('res.body', res.body);
+
     expect(res.body).toEqual({
       success: true,
       message: 'Signed out successfully!'
     });
   });
-
-
-
 
 });
