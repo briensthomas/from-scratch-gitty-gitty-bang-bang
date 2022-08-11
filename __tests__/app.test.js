@@ -35,7 +35,8 @@ describe('backend-express-template routes', () => {
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
 
-    const res = agent.delete('/api/v1/github/dashboard');
+    const res = await agent.delete('/api/v1/github');
+    console.log('res.body', res.body);
     expect(res.body).toEqual({
       success: true,
       message: 'Signed out successfully!'
