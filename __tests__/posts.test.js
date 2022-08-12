@@ -20,7 +20,7 @@ describe('backend-express-template routes', () => {
     await agent.get('/api/v1/github/callback?code=42').redirects(1);
     // console.log('Redirect', redirectRes);
     const res = await agent.get('/api/v1/posts');
-    console.log('res.body', res.body);
+    // console.log('res.body', res.body);
 
     expect(res.status).toBe(200);
     expect(res.body[0]).toEqual({
