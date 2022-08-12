@@ -36,11 +36,10 @@ describe('backend-express-template routes', () => {
       title: 'Party at Julius\' Place!',
       description: 'We\'re hosting a party while Julius is in portland, hope to see you there!'
     };
-    const res = await agent(app).post('/api/v1/posts').send(newPost);
+    const res = await agent.post('/api/v1/posts').send(newPost);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
-      id: expect.any(String),
       created_at: expect.any(String),
       ...newPost
     });
